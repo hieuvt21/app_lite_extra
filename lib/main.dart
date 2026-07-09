@@ -1,21 +1,33 @@
-import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:desktop_window/desktop_window.dart';
 import 'main_shell.dart';
+import 'package:window_manager/window_manager.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('vi_VN', null);
 
-  // Giới hạn kích thước tối thiểu cho Desktop (Giữ nguyên như file cũ)
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-    await DesktopWindow.setMinWindowSize(const Size(1280, 720));
+    await windowManager.ensureInitialized();
+
+    WindowOptions windowOptions = const WindowOptions(
+      size: Size(1280, 720),
+      minimumSize: Size(1280, 720),
+      center: true,
+    );
+
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      await windowManager.focus();
+    });
   }
 
-  runApp(const OhidoPOSApp());
+  runApp(const POSApp());
 }
 
-class OhidoPOSApp extends StatelessWidget {
-  const OhidoPOSApp({super.key});
+class POSApp extends StatelessWidget {
+  const POSApp({super.key});
 
   @override
   Widget build(BuildContext context) {

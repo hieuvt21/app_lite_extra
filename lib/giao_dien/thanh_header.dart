@@ -1,3 +1,4 @@
+import 'package:app_lite/quy_tac/giao_dien/nut_bam.dart';
 import 'package:flutter/material.dart';
 
 class ThanhHeader extends StatelessWidget {
@@ -13,7 +14,6 @@ class ThanhHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final dynamicThemeColor = theme.colorScheme.primary;
 
     return Container(
       height: 65,
@@ -45,29 +45,12 @@ class ThanhHeader extends StatelessWidget {
           Container(width: 1, height: 20, color: const Color(0xFFE2E8F0)),
           const SizedBox(width: 16),
 
-          ElevatedButton.icon(
+          NutBam(
+            nhan: 'POS',
             onPressed: onPosButtonPressed,
-            icon: const Icon(
-              Icons.wallet_giftcard_rounded,
-              color: Colors.white,
-              size: 18,
-            ),
-            label: const Text(
-              'POS',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                fontSize: 13,
-              ),
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: dynamicThemeColor,
-              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
+            kieu: KieuNutBam.chinh,
+            kichThuoc: KichThuocNut.nho,
+            icon: Icons.wallet_giftcard_rounded,
           ),
         ],
       ),
